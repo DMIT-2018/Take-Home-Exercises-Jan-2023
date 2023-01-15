@@ -18,6 +18,8 @@ with the example or will reference the Westwind database.  The Westwind.bacpac c
 1. [Where Clause (Query/Method Syntax)](./3%20-%20Where%20Clause.md)
 1. [Anonymous Types (Method Syntax)](./4%20-%20Anonymous%20Types.md)
 
+[Back to Exercises](../ReadMe.md)
+
 ##### References
 [101 LINQ Samples](https://learn.microsoft.com/en-us/samples/dotnet/try-samples/101-linq-samples/)
 <br>
