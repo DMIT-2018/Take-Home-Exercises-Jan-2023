@@ -13,6 +13,8 @@
 1. [Transactional Service Method/Linq](./TRX_Implementation/README.md)
 1. [OLTP Coded Solution ](./OLTP_Integrated/README.md)
 
+## Database **GroceryList.bacpac** at the root of this repository.
+
 ## Documentation and Planning
 
 Milestones and Issues are a feature of GitHub that help you in planning and executing your development tasks. Treat **each** individual exercise in this repository as a **single** milestone. As soon as an exercise has been released, create a milestone on GitHub with the planned/estimated due date for that exercise. Then review the specifications of the exercise and generate discrete issues that outline the tasks required for completing the exercise. Each of these issues must be matched with the milestone for the exercise. **You are expected to reference the relevant issues as you make your commits during each exercise.**
