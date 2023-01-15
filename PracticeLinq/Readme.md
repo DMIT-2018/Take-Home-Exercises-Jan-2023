@@ -18,8 +18,6 @@ with the example or will reference the Westwind database.  The Westwind.bacpac c
 1. [Where Clause (Query/Method Syntax)](./3%20-%20Where%20Clause.md)
 1. [Anonymous Types (Method Syntax)](./4%20-%20Anonymous%20Types.md)
 ---
-A. [Level 50 (The Boss Level)](./50%20-%20Bossx%20Level.md)
-
 
 
 [Back to Exercises](../README.md)
