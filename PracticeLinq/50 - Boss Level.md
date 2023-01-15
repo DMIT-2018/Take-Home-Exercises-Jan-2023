@@ -1,4 +1,7 @@
-# 4 - Anonymous Types (Method Syntax)
+# Level 50 (The Boss Level)
+###  These examples expands on knowledge that you have learn within the class to give you a challenge in what is possible using LINQ syntax.
+---
+<br>
 
   ##### Database
   * Westwind</br></br>
