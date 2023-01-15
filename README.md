@@ -15,7 +15,7 @@
 
 ## Database *GroceryList.bacpac* at the root of this repository.
 
-The database for the evaluated take home exercises can be from among the files at the top of this repository. Scroll up and downlaod `**GroceryList.bacpac**`
+The database for the evaluated take home exercises can be from among the files at the top of this repository. Scroll up and downlaod `GroceryList.bacpac`
 
 ## Documentation and Planning
 
