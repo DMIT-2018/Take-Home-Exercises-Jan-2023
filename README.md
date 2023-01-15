@@ -13,7 +13,9 @@
 1. [Transactional Service Method/Linq](./TRX_Implementation/README.md)
 1. [OLTP Coded Solution ](./OLTP_Integrated/README.md)
 
-## Database **GroceryList.bacpac** at the root of this repository.
+## Database *GroceryList.bacpac* at the root of this repository.
+
+The database for the evaluated take home exercises can be from among the files at the top of this repository. Scroll up and downlaod `**GroceryList.bacpac**`
 
 ## Documentation and Planning
 
