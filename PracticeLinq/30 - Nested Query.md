@@ -1,12 +1,102 @@
-# 6 - Nested Query (Method Syntax)
+# 30 - Nested Query (Method Syntax)
 
   ##### Database
   * Westwind</br>
   ##### Setup
   * Use C# Program</br></br>
+
+<details>
+<summary>Anonymous Types Nested Query</summary>
+
+**Given a list of Categories, return the following information.**
+
+* Category Name (shown as Name) 
+* Description
+* Items (*NOTE:  We are using **Items** so not to cause confusion by calling it **Products***)
+  * Product Name (shown as Name)
+  * Unit Price (shown as Price)
+* **Order by Category Name, Product Name**  
   
 <details>
-<summary>Nested Query</summary>
+<summary>Solution</summary>
+
+  ```cs
+void Main()
+{
+	Categories
+		.OrderBy(c => c.CategoryName)
+		.Select(c => new 
+		{
+			Name = c.CategoryName,
+			Description = c.Description,
+			Products = Products
+						.Where(p => p.CategoryID == c.CategoryID)
+						.OrderBy(p => p.ProductName)
+						.Select(p => new
+						{
+							Name = p.ProductName,
+							Price = p.UnitPrice
+						}
+						).ToList()
+		}).Dump();
+
+}
+ ```
+</details>
+
+### Output
+![](Images/30%20-%20Nested%20Query%20-%20Anonymous%20Types%201.png)
+</details>
+
+---    
+<details>
+<summary>Anonymous Types Nested Query (Part 2)</summary>
+
+**Given a list of Suppliers, return the following information.**
+
+* Supplier Name (shown as Name) 
+* Contact Name
+* City
+* Items (*NOTE:  We are using **Items** so not to cause confusion by calling it **Products***)
+  * Product Name (shown as Name)
+  * Unit Price (shown as Price)
+* **Order by Category Name, Product Price from largest to smallest**  
+* **We only want to see those products that have a value less than $10.00**
+  
+<details>
+<summary>Solution</summary>
+
+  ```cs
+void Main()
+{
+	Suppliers		
+		.OrderBy(s => s.CompanyName)
+		.Select(s => new
+		{
+			Name = s.CompanyName,
+			ContactName = s.ContactName,
+			City = s.Address.City,
+			Items = Products
+				.Where(p => p.UnitPrice < 10)
+				.OrderByDescending(p => p.UnitPrice)
+				.Select(p => new
+				{
+					Name = p.ProductName,
+					Price = p.UnitPrice
+				})
+	
+		}).Dump();
+}
+ ```
+</details>
+
+### Output
+![](Images/30%20-%20Nested%20Query%20-%20Anonymous%20Types%202.png)
+</details>
+
+---    
+<details>
+<summary>Strongly Type Nested Query</summary>
 
 **Given a list of Categories, return the following information.**
 
@@ -59,12 +149,12 @@ public class ProductView
 </details>
 
 ### Output
-![](Images/6a%20-%20Nested%20Query%201.png)
+![](Images/30%20-%20Nested%20Query%201.png)
 </details>
 
 ---
 <details>
-<summary>Nested Query (Part 2)</summary>
+<summary>Strongly Type Nested Query (Part 2)</summary>
 
 **Given a list of Order, return the following information.**
 
@@ -131,10 +221,11 @@ public class OrderDetailView
 </details>
 
 ### Output
-![](Images/6a%20-%20Nested%20Query%202.png)
+![](Images/30%20-%20Nested%20Query%202.png)
 </details>
 
 ---  
+
 </br>
 
 [Readme.md](./Readme.md)

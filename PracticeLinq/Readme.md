@@ -30,10 +30,9 @@ with the example or will reference the Westwind database.  The Westwind.bacpac c
 1. [Where Clause (Query/Method Syntax)](./3%20-%20Where%20Clause.md)
 1. [Anonymous Types (Method Syntax)](./4%20-%20Anonymous%20Types.md)
 1. [Strongly Types (Method Syntax)](./5%20-%20Strongly%20Types.md)
-1. [Nested Query (Method Syntax)](./6%20-%20Nested%20Query.md)
 
 ## Intermediate Queries  
-30.  [Nested Query (Method Syntax)](./6%20-%20Nested%20Query.md)
+30.  [Nested Query (Method Syntax)](./30%20-%20Nested%20Query.md)
 
 ## Advance Queries  
 50. [Level 50 (The Boss Level)](./50%20-%20Boss%20Level.md)
