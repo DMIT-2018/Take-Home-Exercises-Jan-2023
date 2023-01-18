@@ -15,6 +15,7 @@
 * Average Price
 * Total Price (This is assuming that someone bought one of each thing.)
 * **We only want to see those products that have are not discontinued**
+* **NOTE:  You will need to use the FirstOrDefault()**
 
 <details>
 <summary>Solution</summary>
@@ -95,7 +96,6 @@ Suppliers
 
 * **Order by Suppliers then Quantity of items sold from largest to smallest, Name**  
 
-  
 <details>
 <summary>Solution</summary>
 
@@ -113,8 +113,8 @@ void Main()
 					{
 						Name = p.ProductName,
 						QuantitySold = OrderDetails
-						.Where(od => od.ProductID == p.ProductID)
-						.Sum(od => od.Quantity)
+    						.Where(od => od.ProductID == p.ProductID)
+    						.Sum(od => od.Quantity)
 
 					}).OrderByDescending(x => x.QuantitySold)
 	})
@@ -124,6 +124,7 @@ void Main()
 public class HistoryView
 {
 	public string Name { get; set; }
+	//  quantity sold must be nullable due to OrderDetails.Quantity being nullable
 	public int? QuantitySold { get; set; }
 }
  ```
@@ -131,6 +132,41 @@ public class HistoryView
 
 ### Output
 ![](Images/31%20-%20Sum%20Strongly%20Type.png)
+</details>
+
+--- 
+<details>
+<summary>Count/Max/Min/Average/Sum</summary>
+
+**Given a list of Orders, return the following information.**
+
+* Order ID
+* Number of transaction that makes up that order (shown as TransactionCount)
+* Largest transaction that that makes up that order [Quantity * UnitPrice]  (shown as MaxExtPrice)
+* Smallest transaction that that makes up that order [Quantity * UnitPrice]  (shown as MinExtPrice)
+* Average transaction that that makes up that order [Quantity * UnitPrice]  (shown as AvgExtPrice)
+* Calculate the Order sub total before discount [Quantity * UnitPrice]  (shown as SubTotal) 
+* **Order by Order ID**  
+
+<details>
+<summary>Solution</summary>
+
+  ```cs
+Orders
+	.Select(o => new
+	{
+		OrderID = o.OrderID,
+		TransactionCount = o.OrderDetails.Count(),
+		MaxExtPrice = o.OrderDetails.Max(od => od.Quantity * od.UnitPrice),
+		MinExtPrice = o.OrderDetails.Select(od => od.Quantity * od.UnitPrice).Min(),
+		AvgExtPrice = o.OrderDetails.Average(od => od.Quantity * od.UnitPrice),
+		SubTotal = o.OrderDetails.Select(od => od.Quantity * od.UnitPrice).Sum()
+	}).Dump();
+ ```
+</details>
+
+### Output
+![](Images/31%20-%20Count%20Min%20Max%20Avg%20Sun.png)
 </details>
 
 ---  
