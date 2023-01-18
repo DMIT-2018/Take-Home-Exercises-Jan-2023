@@ -95,3 +95,13 @@ Categories
 </details>
 
 --- 
+</br>
+
+[Readme.md](./Readme.md)
+
+
+DMIT 2018 Take Homework<br><br>
+© 2023 Northern Alberta Institute of Technology <br>
+All Rights Reserved
+
+
