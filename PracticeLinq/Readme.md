@@ -35,6 +35,7 @@ with the example or will reference the Westwind database.  The Westwind.bacpac c
 30. [Nested Query (Method Syntax)](./30%20-%20Nested%20Query.md)
 31. [Queries Using Aggregate (Method Syntax)](./31%20-%20Aggregate%20Query.md)
 32. [Group By (Method Syntax)](./32%20-%20Group%20By.md)
+33. [Odds & Ends (Method Syntax)](./33%20-%20Odds%20and%20Ends.md)
 
 ## Advance Queries  
 50. [Level 50 (The Boss Level)](./50%20-%20Boss%20Level.md)
