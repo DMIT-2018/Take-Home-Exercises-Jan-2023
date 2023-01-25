@@ -94,7 +94,93 @@ void Main()
 ![](Images/30%20-%20Nested%20Query%20-%20Anonymous%20Types%202.png)
 </details>
 
----    
+---   
+<details>
+<summary>Anonymous Types Nested Query (Part 3)</summary>
+
+**Given a list of Product, return the following information.**
+
+* Product Name (shown as ProductName)
+* Orders Detail (shown as Details)
+  * Order ID
+  * Customer Name (shown as Customer)
+  * Order Date
+  * Quantity Sold (shown as Sold)
+  
+* **Order Product Name and Quantity Descending**  
+* **We only want to see the following:**
+  * **Products that have been sold in 2018**
+  * **Only those Products that have been sold 40 or more**
+
+<details>
+<summary>Solution</summary>
+
+  ```cs
+Products
+	.OrderBy(x => x.ProductName)
+	.Select(x => new
+	{
+		ProductName = x.ProductName,
+		Details = OrderDetails
+			   .Where(od => od.ProductID ==x.ProductID
+						&& od.Order.OrderDate.Value.Year == 2018
+						&& od.Quantity >= 40)
+				.OrderByDescending(od => od.Quantity)			
+			.Select(od => new
+			{
+				OrderID = od.OrderID,
+				Customer = od.Order.Customer.CompanyName,
+				Sold = od.Quantity
+			})
+	}).Dump();
+ ```
+</details>
+
+### Output
+![](Images/30%20-%20Nested%20Query%20-%20Anonymous%20Types%203.png)
+</details>
+
+---   
+<details>
+<summary>Anonymous Types Nested Query (Part 4)</summary>
+
+**Given a list of Categories, return the following information.**
+
+* Category Name (shown as CategoryName)
+* Product Detail (shown as Details)
+  * Product Name (shown as ProductName)
+  * Total Quantity Sold (shown as TotalSold)
+  
+* **Order Category Name and Product Name**  
+* **NOTE:  When getting the Total Quantity Sold, you will have to cast the Quantity as nullable.  IE:  (int?)x.Quantity**
+
+<details>
+<summary>Solution</summary>
+
+  ```cs
+Categories
+	.OrderBy(x => x.CategoryName)
+	.Select(x => new
+	{
+		CategoryName = x.CategoryName,
+		Details = Products
+					.Where(p => p.CategoryID == x.CategoryID)
+					.OrderBy(p => p.ProductName)
+					.Select(p => new
+					{
+						ProductName = p.ProductName,
+						TotalSold = p.OrderDetails.Sum(x => (int?)x.Quantity)
+					})
+	})
+	.Dump();
+ ```
+</details>
+
+### Output
+![](Images/30%20-%20Nested%20Query%20-%20Anonymous%20Types%204.png)
+</details>
+
+--- 
 <details>
 <summary>Strongly Type Nested Query</summary>
 
