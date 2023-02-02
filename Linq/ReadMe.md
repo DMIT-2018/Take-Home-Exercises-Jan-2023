@@ -22,7 +22,7 @@
 
 ----
 
-[Back to Exercises](../ReadMe.md)
+[Back to Exercises](../README.md)
 
 > Private Classroom GitHub Repo Only
 
