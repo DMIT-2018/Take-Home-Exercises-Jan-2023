@@ -9,7 +9,7 @@
 > Evalualted exercises for this term are posted to this repository. You can copy these instructions to your exercise repository set up by your instructor for this term. Any adjusts or corrects to the exercise will be done to this repository and thus supercedes any copy you make of this repository.
 
 1. [Linq](./Linq/ReadMe.md)
-1. [UI/UX Development Plan](./UX_Planning/README.md)
+1. [OLTP Development Plan](./UX_Planning/README.md)
 1. [Transactional Service Method/Linq](./TRX_Implementation/README.md)
 1. [OLTP Coded Solution ](./OLTP_Integrated/README.md)
 
