@@ -52,7 +52,7 @@ The form is designed to collect the order picking information. The form is desig
  
 ## Proposed Query/Command Data Models
 
-## TBA
+![Suggested Data Classes](./SuggestedViewModels.png)
 
 ## Requirements:
 
