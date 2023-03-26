@@ -7,18 +7,17 @@
 |   |   1   | Development Components as requested    |   |
 |   |   1   | Reverse Engineer required entities (Dbcontext, Entities, access internal)  |   |
 |   |   1   | CQRS Data Model(s) (picking , picker, customer information; command data model )   |   |
-|   |   1   | Implementation of Query Service Method(s) (FETCH covers picker, customer, order detials)   |   |
+|   |   1   | Implementation of Query Service Method(s) (FETCH covers picker, customer, order details and data display)   |   |
 |   |   1   | Implementation of Command Service Method (transaction for processing picking information)  |   |
 |   |   1   | Implementation of services registration.  |   |
 |   |   1   | menu setup  |    |
-|   |   3   | Implementation of Order Display Service and CQRS query model |    |
 |   |   3   | Implementation of Order Display web page  |    |
-|   |   5   | Implementation of Picking recording web page - form creationg  |    |
-|   |   2   | Implementation of OnPost for Fetch Processing  |    |
-|   |   2   | Implementation of OnPost for Save Processing  |    |
+|   |   5   | Implementation of Picking recording web page - form creation  |    |
+|   |   2   | Implementation of the Fetch Processing event  |    |
+|   |   2   | Implementation of the Save Processing event |    |
 |   |   1   | Implementation of Clear Processing  |    |
 |   |  -4   | Penalties Max -4 (e.g.: milestone and or issue missing, insufficient commits, non-informative commit messages)* |
-|   |  23   | **Total** |
+|   |  20   | **Total** |
 
 
 ### Marking Rubric
@@ -36,7 +35,7 @@
 [Back to Exercises](../README.md)
 
 ----
-Given the following user-interface form, using your transaction service methods (or methods supplied), create a work web page that will allow a user to enter picking information and send it to your class library for recording on the database. Create a second page that will take in an order id and return the order id, picker id, picked date, subtotal, gst and a collection of orderlist details for the order id. The second page will display the data.
+Given the following user-interface form, using your transaction service methods (or methods supplied), create a working web page that will allow a user to enter picking information and send it to your class library for recording on the database. Create a second page that will take in an order id and return the order id, picker id, picked date, subtotal, gst and a collection of orderlist details for the order id. The second page will display the data.
 Follow the guidance and examples given by your instructor for your integrating your service method with the web form. 
 
 
@@ -70,6 +69,6 @@ The form is designed to collect the order picking information. The form is desig
 1. Implement code to register your serivce methods and dbcontext. Use your class demonstration as a guideline in setting this up. Use User Secrets for your connection string. 
 1. Implement your service methods and CQRS data models within the class library. **A set of methods and models have been supplied for you to use if you wish. They have been tested and work.**
 1. Create the data display page for the order. It should have a form to accept an order id and fetch the requested data (see above). Add a reset button to your form to clear the form.
-1. Create a web page using the mockup diagram to collect your picking information. The process for this page are listed above. Collect the necessary data from all the orderlist detail lines to submit along with the orderid and pickerid.  
+1. Create a web page using the mockup diagram to collect your picking information. The processes for this page are listed above. Collect the necessary data from all the orderlist detail lines to submit along with the orderid and pickerid.  
 
 ![Order Picking RTD](./GroceryERD.png)
