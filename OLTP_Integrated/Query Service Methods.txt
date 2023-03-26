@@ -83,6 +83,16 @@ public OrderListDetail FetchOrderDetails(int orderid)
 
 public OrderAndDetails DisplayPlaylist(int orderid)
 {
+    Order orderexists = null;
+    if (orderid < 1)
+    {
+        throw new ArgumentException("Order id is invalid. Try again.");
+    }
+    orderexists = _groceryListContext.Orders.FirstOrDefault(o => o.OrderID == orderid);
+    if (orderexists == null)
+    {
+        throw new ArgumentException("Order not on file. Try again.");
+    }
     OrderAndDetails info = _groceryListContext.Orders
                         .Where(p => p.OrderID == orderid)
                         .Select(p => new OrderAndDetails
