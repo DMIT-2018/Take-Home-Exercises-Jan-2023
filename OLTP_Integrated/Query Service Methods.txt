@@ -1,0 +1,115 @@
+Query Service Methods
+
+List<PickerInfo> Picker_FetchPicker(int pickerid)
+{
+	IEnumerable<PickerInfo> info = null;
+	Pickers pickerexists = null;
+	if (pickerid < 1)
+	{
+		throw new ArgumentException("Picker id is invalid. Try again.");
+	}
+	pickerexists = Pickers.FirstOrDefault(o => o.PickerID == pickerid);
+	if (pickerexists == null)
+	{
+		throw new ArgumentException("Picker not on file. Try again.");
+	}
+	info = Pickers
+			.Where(x => x.PickerID == pickerid)
+			.Select(x => new PickerInfo
+			{
+				PickerId = x.PickerID,
+				PickerName = x.FirstName + " " + x.LastName
+				
+			});
+	return info.ToList();
+}
+
+List<CustomerInfo> Order_FetchCustomer(int orderid)
+{
+	IEnumerable<CustomerInfo> info = null;
+	Orders orderexists = null;
+	if (orderid < 1)
+	{
+		throw new ArgumentException("Order id is invalid. Try again.");
+	}
+	orderexists = Orders.FirstOrDefault(o => o.OrderID == orderid);
+	if (orderexists == null)
+	{
+		throw new ArgumentException("Order not on file. Try again.");
+	}
+	info = Orders
+			.Where(x => x.OrderID == orderid)
+			.Select(x => new CustomerInfo
+			{
+				CustomerId = x.CustomerID,
+				CustomerName = x.Customer.FirstName + " " + x.Customer.LastName,
+				CustomerPhone = x.Customer.Phone
+				
+			});
+	return info.ToList();
+}
+
+List<OrderListDetail> OrderLists_FetchOrderDetails(int orderid)
+{
+	IEnumerable<OrderListDetail> info = null;
+	Orders orderexists = null;
+	OrderList orderlistsexists = null;
+	if (orderid < 1)
+	{
+		throw new ArgumentException("Order id is invalid. Try again.");
+	}
+	orderexists = Orders.FirstOrDefault(o => o.OrderID == orderid);
+	if (orderexists == null)
+	{
+		throw new ArgumentException("Order not on file. Try again.");
+	}
+	orderlistsexists = OrderLists.FirstOrDefault(o => o.OrderID == orderid &&
+								(o.PickIssue != null || o.QtyPicked != 0));
+	if (orderlistsexists != null)
+	{
+		throw new ArgumentException("Order has already been picked and recorded. No allowed to update.");
+	}
+	info = OrderLists
+			.Where(x => x.OrderID == orderid)
+			.Select(x => new OrderListDetail
+			{
+				OrderListId = x.OrderListID,
+				ProductId = x.ProductID,
+				Description = x.Product.Description,
+				OrdQty = x.QtyOrdered,
+				OrderComment = x.CustomerComment
+				
+			});
+	return info.ToList();
+}
+
+public List<OrderAndDetails> DisplayPlaylist(int orderid)
+{
+	IEnumerable<OrderAndDetails> info = Orders
+						.Where(p => p.OrderID == orderid)
+						.Select(p => new OrderAndDetails
+						{
+							OrderID = p.OrderID,
+							PickerID = p.PickerID,
+							PickDate = p.PickedDate,
+							Subtotal = p.SubTotal,
+							GST = p.GST,
+							Details = p.OrderLists
+										.Select(ol => new OrderDetail
+										{
+											OrderListId = ol.OrderListID,
+											ProductId = ol.ProductID,
+											Description = ol.Product.Description,
+											QtyOrdered = ol.QtyOrdered,
+											QtyPicked = ol.QtyPicked,
+											Price = ol.Price,
+											Discount = ol.Discount,
+											PickIssue = ol.PickIssue
+										})
+										.ToList()
+
+						}
+						);
+	return info.ToList();
+	
+}

@@ -1,0 +1,133 @@
+Transcation Service Method
+
+void OrderLists_RecordPicking(int orderid, int pickerid, List<PickingRecord> orderlist)
+{
+	List<Exception> errorlist = new List<Exception>();
+	Orders orderexists = null;
+	Pickers pickerexists = null;
+	decimal subtotal = 0.0m;
+	decimal gst = 0.0m;
+	Products productexists = null;
+	OrderList orderlistexists = null;
+
+	//is there a List<T> instance
+	if (orderlist == null)
+	{
+		throw new ArgumentNullException("No order list supplied for processing");
+
+	}
+
+	//there is a value for each paramete
+	
+	//check orderid as valid parameter
+	if (orderid < 1)
+	{
+		errorlist.Add(new Exception("Order id is invalid. Try again."));
+	}
+	orderexists = Orders.FirstOrDefault(o => o.OrderID == orderid);
+	if (orderexists == null)
+	{
+		errorlist.Add(new Exception("Order not on file. Try again."));
+	}
+
+	//check picker as valid parameter
+	if (pickerid < 1)
+	{
+		errorlist.Add(new Exception("Picker id is invalid. Try again."));
+	}
+	pickerexists = Pickers.FirstOrDefault(o => o.PickerID == pickerid);
+	if (pickerexists == null)
+	{
+		errorlist.Add(new Exception("Picker not on file. Try again."));
+	}
+	
+	//check order has not already been picked
+	orderlistexists = OrderLists.FirstOrDefault(o => o.OrderID == orderid &&
+								(o.PickIssue != null || o.QtyPicked != 0));
+	if (orderlistexists != null)
+	{
+		errorlist.Add(new Exception("Order has already been picked and record. No allowed to update."));
+	}
+
+
+	//does the List<T> instance have any items
+	if (orderlist.Count() == 0)
+	{
+		errorlist.Add(new Exception("You record list is empty. Nothing to record."));
+	}
+	else
+	{
+		string productDescription = null;
+		int itemcount = 0;
+		//you have order list details to process
+		foreach(var item in orderlist)
+		{
+			itemcount++;
+			productexists = Products.FirstOrDefault(p => p.ProductID == item.ProductId);
+			if (productexists == null)
+			{
+				productDescription = $"Item {itemcount}";
+				errorlist.Add(new Exception($"{productDescription} product id {item.ProductId} is not valid."));
+
+			}
+			else
+			{
+				productDescription = $"{productexists.Description} (item {itemcount})";
+			}
+
+			if (item.PickedQty < 0)
+			{
+				errorlist.Add(new Exception($"{productDescription} picked quantity is invalid."));
+			}
+			//item.OrderListId.Dump();
+			orderlistexists = OrderLists.FirstOrDefault(ol => ol.OrderListID == item.OrderListId );
+			if (orderlistexists == null)
+			{
+				errorlist.Add(new Exception($"{productDescription} order reference id is not valid."));
+			}
+			else
+			{
+				if (item.PickedQty != orderlistexists.QtyOrdered && item.PickedIssue == null)
+				{
+					errorlist.Add(new Exception($"{productDescription} picked quantity does not match requested quantity, no reason supplied for difference."));
+				}
+				orderlistexists.QtyPicked = item.PickedQty;
+				orderlistexists.PickIssue = item.PickedIssue;
+				if (productexists != null)
+				{
+					subtotal += (decimal)item.PickedQty * (productexists.Price - productexists.Discount);
+					if (productexists.Taxable)
+					gst += 0.05m * ((decimal)item.PickedQty * (productexists.Price - productexists.Discount));
+					orderlistexists.Price = productexists.Price;
+					orderlistexists.Discount = productexists.Discount;
+				}
+				OrderLists.Update(orderlistexists);
+			}
+		}//eof foreach
+		
+		//update Order record
+		if (orderexists != null)
+		{
+			orderexists.PickerID = pickerid;
+			orderexists.PickedDate = DateTime.Today;
+			orderexists.SubTotal = subtotal;
+			orderexists.GST = gst;
+			Orders.Update(orderexists);
+		}
+	}
+
+
+
+	if (errorlist.Count() > 0)
+	{
+		//throw the collection of errors 
+		throw new AggregateException("Processing concerns, please review", errorlist);
+		//drop out of method NO SAVECHANGES!!!!!!
+	}
+	else
+	{
+		//Send all STAGED processing to the database to actual manipulation
+		//	of the database data
+		SaveChanges();
+	}
+}

@@ -1,0 +1,53 @@
+CQRS data models
+
+public class PickerInfo
+{
+	public int PickerId { get; set; }
+	public string PickerName{ get; set; }
+}
+
+public class CustomerInfo
+{
+	public int CustomerId { get; set; }
+	public string CustomerName{ get; set; }
+	public string CustomerPhone { get; set; }
+}
+
+public class OrderListDetail
+{
+	public int OrderListId { get; set; }
+	public int ProductId { get; set; }
+	public string Description { get; set;}
+	public double OrdQty { get; set; }
+	public string OrderComment { get; set; }
+}
+
+public class PickingRecord
+{
+	public int OrderListId { get; set; }
+	public int ProductId { get; set; }
+	public double? PickedQty { get; set; }
+	public string PickedIssue { get; set; }
+}
+
+public class OrderAndDetails
+{
+	public int OrderID { get; set; }
+	public int? PickerID{get; set;}
+	public DateTime? PickDate{get;set;}
+	public decimal? Subtotal{get;set;}
+	public decimal? GST{get;set;}
+	public List<OrderDetail> Details {get;set;}
+}
+
+public class OrderDetail
+{
+	public int OrderListId{get;set;}
+	public int ProductId{get;set;}
+	public string Description{get;set;}
+	public double QtyOrdered{get;set;}
+	public double? QtyPicked{get;set;}
+	public decimal Price{get;set;}
+	public decimal Discount{get;set;}
+	public string PickIssue{get;set;}
+}
