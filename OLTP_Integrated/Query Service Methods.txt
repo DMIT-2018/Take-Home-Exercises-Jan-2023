@@ -109,6 +109,7 @@ public OrderAndDetails DisplayOrderInformation(int orderid)
                                             ProductId = ol.ProductID,
                                             Description = ol.Product.Description,
                                             QtyOrdered = ol.QtyOrdered,
+                                            OrderComment = ol.CustomerComment,
                                             QtyPicked = ol.QtyPicked,
                                             Price = ol.Price,
                                             Discount = ol.Discount,
