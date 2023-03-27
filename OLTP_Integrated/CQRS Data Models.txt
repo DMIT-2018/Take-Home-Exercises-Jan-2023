@@ -46,6 +46,7 @@ public class OrderDetail
 	public int ProductId{get;set;}
 	public string Description{get;set;}
 	public double QtyOrdered{get;set;}
+	public string OrderComment { get; set; }
 	public double? QtyPicked{get;set;}
 	public decimal Price{get;set;}
 	public decimal Discount{get;set;}
