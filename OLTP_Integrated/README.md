@@ -62,6 +62,7 @@ The form is designed to collect the order picking information. The form is desig
 ## Requirements:
 
 1. Create a new solution containing a web application and class library
+    - Please name your ConnectionStrings to **OLTPDB** 
 1. Create two new menu items to access 
     - Data display page for order
     - Record Picking data entry page. 
