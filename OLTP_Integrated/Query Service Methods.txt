@@ -81,7 +81,7 @@ public OrderListDetail FetchOrderDetails(int orderid)
     return info;
 }
 
-public OrderAndDetails DisplayPlaylist(int orderid)
+public OrderAndDetails DisplayOrderInformation(int orderid)
 {
     Order orderexists = null;
     if (orderid < 1)
