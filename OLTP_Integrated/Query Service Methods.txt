@@ -47,39 +47,40 @@ public CustomerInfo FetchCustomer(int orderid)
     return info;
 }
 
-public OrderListDetail FetchOrderDetails(int orderid)
-{
-    OrderListDetail info = null;
-    Order orderexists = null;
-    OrderList orderlistsexists = null;
-    if (orderid < 1)
-    {
-        throw new ArgumentException("Order id is invalid. Try again.");
-    }
-    orderexists = _groceryListContext.Orders.FirstOrDefault(o => o.OrderID == orderid);
-    if (orderexists == null)
-    {
-        throw new ArgumentException("Order not on file. Try again.");
-    }
-    orderlistsexists = _groceryListContext.OrderLists.FirstOrDefault(o => o.OrderID == orderid &&
-                                (o.PickIssue != null || o.QtyPicked != 0));
-    if (orderlistsexists != null)
-    {
-        throw new ArgumentException("Order has already been picked and recorded. No allowed to update.");
-    }
-    info = _groceryListContext.OrderLists
-            .Where(x => x.OrderID == orderid)
-            .Select(x => new OrderListDetail
-            {
-                OrderListId = x.OrderListID,
-                ProductId = x.ProductID,
-                Description = x.Product.Description,
-                OrdQty = x.QtyOrdered,
-                OrderComment = x.CustomerComment
+public List<OrderListDetail> OrderLists_FetchOrderDetails(int orderid)
+	{
+	       IEnumerable<OrderListDetail> info = null;
+	       Orders orderexists = null;
+	       OrderList orderlistsexists = null;
+	       if (orderid < 1)
+	       {
+	              throw new ArgumentException("Order id is invalid. Try again.");
+	       }
+	       orderexists = Orders.FirstOrDefault(o => o.OrderID == orderid);
+	       if (orderexists == null)
+	       {
+	              throw new ArgumentException("Order not on file. Try again.");
+	       }
+	       orderlistsexists = OrderLists.FirstOrDefault(o => o.OrderID == orderid &&
+	                                                       (o.PickIssue != null || o.QtyPicked != 0));
+	       if (orderlistsexists != null)
+	       {
+	              throw new ArgumentException("Order has already been picked and recorded. No allowed to update.");
+	       }
+	       info = OrderLists
+	                     .Where(x => x.OrderID == orderid)
+	                     .Select(x => new OrderListDetail
+	                     {
+	                           OrderListId = x.OrderListID,
+	                           ProductId = x.ProductID,
+	                           Description = x.Product.Description,
+	                           OrdQty = x.QtyOrdered,
+	                           OrderComment = x.CustomerComment
+	                           
+	                     });
+	       return info.ToList();
+	}
 
-            }).FirstOrDefault();
-    return info;
-}
 
 public OrderAndDetails DisplayOrderInformation(int orderid)
 {
