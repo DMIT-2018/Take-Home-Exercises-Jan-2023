@@ -6,12 +6,12 @@ public PickerInfo FetchPicker(int pickerid)
     {
         throw new ArgumentException("Picker id is invalid. Try again.");
     }
-    pickerexists = _groceryListContext.Pickers.FirstOrDefault(o => o.PickerID == pickerid);
+    pickerexists = Pickers.FirstOrDefault(o => o.PickerID == pickerid);
     if (pickerexists == null)
     {
         throw new ArgumentException("Picker not on file. Try again.");
     }
-    info = _groceryListContext.Pickers
+    info = Pickers
             .Where(x => x.PickerID == pickerid)
             .Select(x => new PickerInfo
             {
@@ -25,17 +25,17 @@ public PickerInfo FetchPicker(int pickerid)
 public CustomerInfo FetchCustomer(int orderid)
 {
     CustomerInfo info = null;
-    Order orderexists = null;
+    Order orderExists = null;
     if (orderid < 1)
     {
         throw new ArgumentException("Order id is invalid. Try again.");
     }
-    orderexists = _groceryListContext.Orders.FirstOrDefault(o => o.OrderID == orderid);
-    if (orderexists == null)
+    orderExists = Orders.FirstOrDefault(o => o.OrderID == orderid);
+    if (orderExists == null)
     {
         throw new ArgumentException("Order not on file. Try again.");
     }
-    info = _groceryListContext.Orders
+    info = Orders
             .Where(x => x.OrderID == orderid)
             .Select(x => new CustomerInfo
             {
@@ -50,20 +50,20 @@ public CustomerInfo FetchCustomer(int orderid)
 public List<OrderListDetail> OrderLists_FetchOrderDetails(int orderid)
 	{
 	       IEnumerable<OrderListDetail> info = null;
-	       Orders orderexists = null;
-	       OrderList orderlistsexists = null;
+	       Orders orderExists = null;
+	       OrderList orderlistsExists = null;
 	       if (orderid < 1)
 	       {
 	              throw new ArgumentException("Order id is invalid. Try again.");
 	       }
-	       orderexists = Orders.FirstOrDefault(o => o.OrderID == orderid);
-	       if (orderexists == null)
+	       orderExists = Orders.FirstOrDefault(o => o.OrderID == orderid);
+	       if (orderExists == null)
 	       {
 	              throw new ArgumentException("Order not on file. Try again.");
 	       }
-	       orderlistsexists = OrderLists.FirstOrDefault(o => o.OrderID == orderid &&
+	       orderlistsExists = OrderLists.FirstOrDefault(o => o.OrderID == orderid &&
 	                                                       (o.PickIssue != null || o.QtyPicked != 0));
-	       if (orderlistsexists != null)
+	       if (orderlistsExists != null)
 	       {
 	              throw new ArgumentException("Order has already been picked and recorded. No allowed to update.");
 	       }
@@ -84,17 +84,17 @@ public List<OrderListDetail> OrderLists_FetchOrderDetails(int orderid)
 
 public OrderAndDetails DisplayOrderInformation(int orderid)
 {
-    Order orderexists = null;
+    Order orderExists = null;
     if (orderid < 1)
     {
         throw new ArgumentException("Order id is invalid. Try again.");
     }
-    orderexists = _groceryListContext.Orders.FirstOrDefault(o => o.OrderID == orderid);
-    if (orderexists == null)
+    orderExists = Orders.FirstOrDefault(o => o.OrderID == orderid);
+    if (orderExists == null)
     {
         throw new ArgumentException("Order not on file. Try again.");
     }
-    OrderAndDetails info = _groceryListContext.Orders
+    OrderAndDetails info = Orders
                         .Where(p => p.OrderID == orderid)
                         .Select(p => new OrderAndDetails
                         {
